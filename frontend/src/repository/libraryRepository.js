@@ -1,26 +1,40 @@
-import axios from '../custom-axios/axios'
+import axios from "../custom-axios/axios";
 
-const libraryService = {
-    fetchBooks: () => {
-        return axios.get("/books")
+const LibraryService = {
+    fetchAuthors: () => {
+        return axios.get("/authors");
     },
     fetchCategories: () => {
-        return axios.get("/categories")
+        return axios.get("/categories");
     },
-    fetchAuthors: () => {
-        return axios.get("/authors")
+    fetchBooks: () => {
+        return axios.get("/books");
+    },
+    addBook: (name, category, authorId, availableCopies) => {
+        return axios.post("/add", {
+            name: name,
+            category: category,
+            authorId: authorId,
+            availableCopies: availableCopies,
+        });
+    },
+    editBook: (id, name, category, authorId, availableCopies) => {
+        return axios.put(`/edit/${id}`, {
+            name: name,
+            category: category,
+            authorId: authorId,
+            availableCopies: availableCopies,
+        });
+    },
+    getBook: (id) => {
+        return axios.get(`/${id}`);
+    },
+    markAsTaken: (id) => {
+        return axios.put(`/markAsTaken/${id}`);
     },
     deleteBook: (id) => {
         return axios.delete(`/delete/${id}`);
     },
-    addBook: (name, author, availableCopies, category) => {
-        return axios.post("/add", {
-            "name": name,
-            "author": author,
-            "availableCopies": availableCopies,
-            "category": category
-        });
-    }
-}
+};
 
-export default libraryService;
+export default LibraryService;
