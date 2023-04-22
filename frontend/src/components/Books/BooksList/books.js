@@ -84,7 +84,7 @@ class Books extends React.Component {
                 return (
                     <BookTerm
                         term={term}
-                        markAsTaken={this.props.markAsTaken}
+                        onMarkAsTaken={(id) => {this.props.markAsTaken(id)}}
                         onDelete={this.props.onDelete}
                         onEdit={this.props.onEdit}
                     />

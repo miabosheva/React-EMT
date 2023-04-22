@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const bookTerm = (props) => {
+const BookTerm = (props) => {
     return (
         <tr>
             <td>
@@ -26,10 +26,16 @@ const bookTerm = (props) => {
                       to={`/edit/${props.term.id}`}>
                     Edit
                 </Link>
+                <button className={"btn btn-info ml-2"}
+                      onClick={() => {
+                          props.onMarkAsTaken(props.term.id)
+                      }}>
+                    Mark As Taken
+                </button>
             </td>
         </tr>
 
     );
 }
 
-export default bookTerm;
+export default BookTerm;

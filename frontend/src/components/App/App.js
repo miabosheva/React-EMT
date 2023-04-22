@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Switch} from "react-router-dom";
 import LibraryService from "../../repository/libraryRepository";
 import Books from "../Books/BooksList/books";
 import AddBook from "../Books/BooksAdd/booksAdd";
@@ -24,42 +24,56 @@ class App extends React.Component {
             <Router>
                 <main>
                     <Header/>
-                    <Route
-                        path={"/edit/:id"}
-                        exact render={() =>
-                        <EditBook
-                            categories={this.state.categories}
-                            authors={this.state.authors}
-                            book={this.state.selectedBook}
-                            onEditBook={this.editBook}
+                    <Switch>
+                        <Route
+                            path={"/edit/:id"}
+                            exact
+                            render={() =>
+                            <EditBook
+                                categories={this.state.categories}
+                                authors={this.state.authors}
+                                book={this.state.selectedBook}
+                                onEditBook={this.editBook}
+                            />
+                        }
                         />
-                    }
-                    />
-                    <Route
-                        path={"/books/addBook"}
-                        exact render={() =>
-                        <AddBook
-                            addBook={this.addBook}
-                            categories={this.state.categories}
-                            authors={this.state.authors}
+                        <Route
+                            path={"/books/addBook"}
+                            exact render={() =>
+                            <AddBook
+                                addBook={this.addBook}
+                                categories={this.state.categories}
+                                authors={this.state.authors}
+                            />
+                        }
                         />
-                    }
-                    />
-                    <Route
-                        path={"/books"}
-                        exact render={() =>
-                        <Books
-                            books={this.state.books}
-                            markAsTaken={this.markAsTaken}
-                            onDelete={this.deleteBook}
-                            onEdit={this.getBook}
+                        <Route
+                            path={"/books"}
+                            exact render={() =>
+                            <Books
+                                books={this.state.books}
+                                markAsTaken={this.markAsTaken}
+                                onDelete={this.deleteBook}
+                                onEdit={this.getBook}
+                            />
+                        }
                         />
-                    }
-                    />
-                    <Route
-                        path={"/categories"}
-                        exact render={() => <Category categories={this.state.categories}/>}
-                    />
+                        <Route
+                            path={"/categories"}
+                            exact render={() => <Category categories={this.state.categories}/>}
+                        />
+                        <Route
+                            path={"/"}
+                            exact render={() =>
+                            <Books
+                                books={this.state.books}
+                                onMarkAsTaken={(id) => this.markAsTaken(id)}
+                                onDelete={this.deleteBook}
+                                onEdit={this.getBook}
+                            />}
+                        />
+                    </Switch>
+
                 </main>
             </Router>
         );
@@ -116,6 +130,7 @@ class App extends React.Component {
             this.setState({
                 selectedBook: data.data,
             });
+
         });
     };
 

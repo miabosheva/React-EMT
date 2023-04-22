@@ -21,7 +21,7 @@ const EditBook = (props) => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         const name = formData.name !== "" ? formData.name : props.book.name;
-        const category = formData.category !== 1 ? formData.category : props.book.category;
+        const category = formData.category !== "NOVEL" ? formData.category : props.book.category;
         const author = formData.author !== 1 ? formData.author : props.book.author.id;
         const availableCopies = formData.availableCopies !== 0 ? formData.availableCopies : props.book.availableCopies;
 
